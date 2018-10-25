@@ -4060,7 +4060,7 @@ public class librarianPortal extends javax.swing.JFrame {
         }
         age_txt_slider1.setValue(stu.getAge());
         age_txter1.setText(stu.getAge() + " Years");
-        
+        password_txt1.setText(stu.getPassword());
     }//GEN-LAST:event_jTable8MouseClicked
 
     private void jTable8PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTable8PropertyChange
@@ -4197,6 +4197,12 @@ public class librarianPortal extends javax.swing.JFrame {
     private void jButton12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton12MouseClicked
         // TODO add your handling code here:
         int k = jTable1.getSelectedRow();
+        if(!jTable1.getValueAt(k, 3).toString().equals("available")){
+            rules.msg = "You cannot reserve a book that is not available";
+            showErr();
+            return;
+        }
+        
         if (l.reserveBook(LMS.getBook(jTable1.getValueAt(k, 1).toString(), jTable1.getValueAt(k, 0).toString()))) {
             db.reservationDate(l.getUsername(), jTable1.getValueAt(k, 0).toString(), "pending", new Date());
             jDialog11.setVisible(false);

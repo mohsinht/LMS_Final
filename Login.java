@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package lms;
+
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Mohsin Hayat
@@ -32,6 +35,7 @@ public class Login extends javax.swing.JFrame {
     static String username = "";
     static String password = "";
     static int mode = 1;
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -80,6 +84,11 @@ public class Login extends javax.swing.JFrame {
         jButton4.setContentAreaFilled(false);
         jButton4.setFocusPainted(false);
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -151,7 +160,7 @@ public class Login extends javax.swing.JFrame {
         });
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                none(evt);
             }
         });
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -208,6 +217,11 @@ public class Login extends javax.swing.JFrame {
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setRequestFocusEnabled(false);
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -338,64 +352,56 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void none(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_none
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_none
 
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            // TODO add your handling code here:
-            if(username.equals("")){
-                jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-                jLabel6.setText("Error: You haven't entered your username.");
-            }else if(password.equals("")){
-                jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-                jLabel6.setText("Error: You haven't entered your password.");
-            }else{
+        // TODO add your handling code here:
+        if (username.equals("")) {
+            jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+            jLabel6.setText("Error: You haven't entered your username.");
+        } else if (password.equals("")) {
+            jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+            jLabel6.setText("Error: You haven't entered your password.");
+        } else {
 
-                if(!LMS.checkLoginInfo(username, password, mode)){
-                    jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-                    jLabel6.setText("Error: User not found with these details");
-                }else{
-                    LMS.loggedIn = true;
-                    jLabel6.setForeground(new java.awt.Color(0, 174, 244));
-                    jLabel6.setText("E");
-                    this.setVisible(false);
-                    if(isLibrarian){
-                        new librarianPortal().setVisible(true);
-                    }else if(isStudent){
-                        new studentPortal().setVisible(true);
-                    }else{
-                        new clerkPortal().setVisible(true);
-                    }
-                }
-                
-
+            if (!LMS.checkLoginInfo(username, password, mode)) {
+                jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+                jLabel6.setText("Error: User not found with these details");
+            } else {
+                LMS.loggedIn = true;
+                jLabel6.setForeground(new java.awt.Color(0, 174, 244));
+                jLabel6.setText("E");
+                this.setVisible(false);
             }
+
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(isStudent){
+        if (isStudent) {
             isStudent = false;
             isClerk = true;
             isLibrarian = false;
             mode = 2;
-            jLabel4.setText( "  Sign in (As Clerk) ");
+            jLabel4.setText("  Sign in (As Clerk) ");
             jButton2.setText("Sign in as Student");
             jButton3.setText("Sign in as Librarian");
-        }else if(isClerk){
+        } else if (isClerk) {
             isStudent = true;
             isClerk = false;
             isLibrarian = false;
             mode = 1;
-            jLabel4.setText( "  Sign in (As Student) ");
+            jLabel4.setText("  Sign in (As Student) ");
             jButton2.setText("Sign in as Clerk");
             jButton3.setText("Sign in as Librarian");
-        }else{
+        } else {
             isStudent = false;
             isClerk = true;
             isLibrarian = false;
@@ -404,28 +410,28 @@ public class Login extends javax.swing.JFrame {
             jButton2.setText("Sign in as Student");
             jButton3.setText("Sign in as Librarian");
         }
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        if(isStudent){
+        if (isStudent) {
             isStudent = false;
             isClerk = false;
             isLibrarian = true;
             mode = 3;
-            jLabel4.setText( "Sign in (As Librarian) ");
+            jLabel4.setText("Sign in (As Librarian) ");
             jButton2.setText("Sign in as Clerk");
             jButton3.setText("Sign in as Student");
-        }else if(isLibrarian){
+        } else if (isLibrarian) {
             isStudent = true;
             isClerk = false;
             isLibrarian = false;
             mode = 1;
-            jLabel4.setText( "Sign in (As Student) ");
+            jLabel4.setText("Sign in (As Student) ");
             jButton2.setText("Sign in as Clerk");
             jButton3.setText("Sign in as Librarian");
-        }else{
+        } else {
             isStudent = false;
             isClerk = false;
             isLibrarian = true;
@@ -438,23 +444,23 @@ public class Login extends javax.swing.JFrame {
 
     private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
         // TODO add your handling code here:
-        if(username.equals("")){
+        if (jTextField1.getText().equals("")) {
             jTextField1.setText("");
         }
     }//GEN-LAST:event_jTextField1MouseClicked
 
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
         // TODO add your handling code here:
-        if(username.equals("")){
+        if (jTextField1.getText().equals("Username")) {
             jTextField1.setText("");
         }
     }//GEN-LAST:event_jTextField1FocusGained
 
     private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
         // TODO add your handling code here:
-        if(username.equals("")){
+        if (jTextField1.getText().equals("")) {
             jTextField1.setText("Username");
-        }else{
+        } else {
             username = jTextField1.getText();
         }
     }//GEN-LAST:event_jTextField1FocusLost
@@ -471,34 +477,32 @@ public class Login extends javax.swing.JFrame {
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
         // TODO add your handling code here:
-        username = jTextField1.getText();
+
     }//GEN-LAST:event_jTextField1KeyTyped
 
     private void jPanel3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel3KeyReleased
         // TODO add your handling code here:
-        username = jTextField1.getText();
     }//GEN-LAST:event_jPanel3KeyReleased
 
     private void jPasswordField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusGained
         // TODO add your handling code here:
-        if(password.equals("")){
+        if (String.valueOf(jPasswordField1.getPassword()).equals("")) {
             jPasswordField1.setText("");
-        }else{
+        } else {
             jPasswordField1.setText(password);
         }
     }//GEN-LAST:event_jPasswordField1FocusGained
 
     private void jPasswordField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusLost
         // TODO add your handling code here:
-            if(password.equals("")){
-                jPasswordField1.setText("");
-            }
-            password = String.valueOf(jPasswordField1.getPassword());
+        if (String.valueOf(jPasswordField1.getPassword()).equals("")) {
+            jPasswordField1.setText("");
+        }
+        password = String.valueOf(jPasswordField1.getPassword());
     }//GEN-LAST:event_jPasswordField1FocusLost
 
     private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped
         // TODO add your handling code here:
-        password = String.valueOf(jPasswordField1.getPassword());
     }//GEN-LAST:event_jPasswordField1KeyTyped
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -511,8 +515,50 @@ public class Login extends javax.swing.JFrame {
 
     private void jPasswordField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyReleased
         // TODO add your handling code here:
-        password = String.valueOf(jPasswordField1.getPassword());
     }//GEN-LAST:event_jPasswordField1KeyReleased
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        password = String.valueOf(jPasswordField1.getPassword());
+        username = jTextField1.getText();
+        if (username.equals("")) {
+            jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+            jLabel6.setText("Error: You haven't entered your username.");
+        } else if (password.equals("")) {
+            jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+            jLabel6.setText("Error: You haven't entered your password.");
+        } else {
+
+            if (!LMS.checkLoginInfo(username, password, mode)) {
+                jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+                jLabel6.setText("Error: User not found with these details");
+            } else {
+                LMS.loggedIn = true;
+                jLabel6.setForeground(new java.awt.Color(0, 174, 244));
+                jLabel6.setText("E");
+                this.setVisible(false);
+                if (isLibrarian) {
+                    new librarianPortal().setVisible(true);
+                } else if (isStudent) {
+                    new studentPortal().setVisible(true);
+                } else {
+                    new clerkPortal().setVisible(true);
+                }
+            }
+
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
+    public void showErr(){
+        JOptionPane.showMessageDialog(null, rules.msg);
+        
+    }
+    
+    
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        // TODO add your handling code here:
+        rules.msg = "The \"Create Account\" feature has been disabled. Only admins can create an account.";
+        showErr();
+    }//GEN-LAST:event_jButton4MouseClicked
 
     /**
      * @param args the command line arguments

@@ -7,6 +7,7 @@ package lms;
 
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -1042,7 +1043,7 @@ public class studentPortal extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Book Title", "Status", "Reserved On", "Due Date", "Return Date", "Fine"
+                "Book Title", "Issued By", "Issued On", "Due Date", "Return Date", "Fine"
             }
         ) {
             Class[] types = new Class [] {
@@ -1416,9 +1417,18 @@ public class studentPortal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
+    public void showErr(){
+        JOptionPane.showMessageDialog(null, rules.msg); 
+    }
+    
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
         int k = jTable1.getSelectedRow();
+        if(!jTable1.getValueAt(k, 3).toString().equals("available")){
+            rules.msg = "You cannot reserve a book that is not available";
+            showErr();
+            return;
+        }
         if (s.reserveBook(LMS.getBook(jTable1.getValueAt(k, 1).toString(), jTable1.getValueAt(k, 0).toString()))) {
             db.reservationDate(s.getUsername(), jTable1.getValueAt(k, 0).toString(), "pending", new Date());
             jDialog2.setVisible(true);

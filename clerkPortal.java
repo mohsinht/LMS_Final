@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -140,7 +141,7 @@ public class clerkPortal extends javax.swing.JFrame {
             rowData[1] = u.getUsername();
             ArrayList<reservationDate> rd = u.getResInfo();
             for (int j = 0; j < rd.size(); j++) {
-                if (rd.get(j).getBook().getISBN().equals(LMS.Books.get(i).getISBN())) {
+                if (rd.get(j).getBook().getISBN().equals(LMS.Books.get(i).getISBN()) && rd.get(j).getStatus().equals("pending")) {
                     System.out.println(rd.get(j).getStatus());
                     rowData[2] = rd.get(j).getStatus();
                     rowData[3] = rd.get(j).getDate().toString();
@@ -2615,9 +2616,18 @@ public class clerkPortal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTable1VetoableChange
 
+    public void showErr(){
+        JOptionPane.showMessageDialog(null, rules.msg); 
+    }
+    
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
         int k = jTable1.getSelectedRow();
+        if(!jTable1.getValueAt(k, 3).toString().equals("available")){
+            rules.msg = "You cannot reserve a book that is not available";
+            showErr();
+            return;
+        }
         if (c.reserveBook(LMS.getBook(jTable1.getValueAt(k, 1).toString(), jTable1.getValueAt(k, 0).toString()))) {
             db.reservationDate(c.getUsername(), jTable1.getValueAt(k, 0).toString(), "pending", new Date());
             jDialog2.setVisible(true);
