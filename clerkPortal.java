@@ -1886,7 +1886,7 @@ public class clerkPortal extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Book Title", "Status", "Reserved On", "Due Date", "Return Date", "Fine"
+                "Book Title", "Issued By", "Issued On", "Due Date", "Return Date", "Fine"
             }
         ) {
             Class[] types = new Class [] {
