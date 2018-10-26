@@ -27,23 +27,28 @@ public class clerkPortal extends javax.swing.JFrame {
 
     public clerkPortal() {
         initComponents();
-        jLabel1.setText("Welcome, " + c.getName() + "!");
-        jTextField1.setText(c.getName());
-        jTextField2.setText(String.valueOf(c.getAge()));
-        jTextField5.setText(c.getUsername());
-        jPasswordField1.setText(c.getPassword());
-        jComboBox1.setSelectedItem(c.getGender());
-
         jButton3.setVisible(false);
         jButton4.setVisible(false);
+        refresh();
+    }
+
+    public void refresh(){
+        db.loadBooks();
+        db.loadUsers();
         db.loadPendingReservations();
         db.retrieveBookRecords();
         pendingReservationsLoadData();
         populateReservationData();
         populateRecords();
         populateBorrowers();
+         jLabel1.setText("Welcome, " + c.getName() + "!");
+        jTextField1.setText(c.getName());
+        jTextField2.setText(String.valueOf(c.getAge()));
+        jTextField5.setText(c.getUsername());
+        jPasswordField1.setText(c.getPassword());
+        jComboBox1.setSelectedItem(c.getGender());
     }
-
+    
     public void pendingReservationsLoadData() {
         ArrayList<reservationDate> bookRes = c.reservedBooks();
         DefaultTableModel model = (DefaultTableModel) jTable5.getModel();
@@ -2464,9 +2469,15 @@ public class clerkPortal extends javax.swing.JFrame {
         jMenuBar1.setFocusable(false);
         jMenuBar1.setFont(new java.awt.Font("Raleway Light", 0, 12)); // NOI18N
         jMenuBar1.setInheritsPopupMenu(true);
-        jMenuBar1.setMargin(new java.awt.Insets(0, 650, 0, 0));
+        jMenuBar1.setMargin(new java.awt.Insets(0, 680, 0, 0));
 
+        jMenu1.setText("Refresh");
         jMenu1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Logout");
@@ -2536,7 +2547,8 @@ public class clerkPortal extends javax.swing.JFrame {
         }
         db.updateClerk(jTextField5.getText(), String.valueOf(jPasswordField1.getPassword()), jTextField1.getText(), g, (int) Integer.parseInt(jTextField2.getText()));
         c.update(jTextField5.getText(), String.valueOf(jPasswordField1.getPassword()), jTextField1.getText(), g, (int) Integer.parseInt(jTextField2.getText()));
-        //String rollNo, String dept, String campus, String username, String password, String Name, String Gender, int Age
+        refresh();
+//String rollNo, String dept, String campus, String username, String password, String Name, String Gender, int Age
         //s.update(jTextField3.getText(), jTextField5.getText(), jTextField6.getText(), jTextField4.getText(), String.valueOf(jPasswordField1.getPassword()), jTextField1.getText(), g, (int)Integer.parseInt(jTextField2.getText()));
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -2665,6 +2677,11 @@ public class clerkPortal extends javax.swing.JFrame {
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
         int k = jTable1.getSelectedRow();
+        if(!jTable1.getValueAt(k, 3).toString().equals("available")){
+            rules.msg = "You cannot reserve a book that is not available";
+            showErr();
+            return;
+        }
         if (c.reserveBook(LMS.getBook(jTable1.getValueAt(k, 1).toString(), jTable1.getValueAt(k, 0).toString()))) {
             db.reservationDate(c.getUsername(), jTable1.getValueAt(k, 0).toString(), "pending", new Date());
             jDialog1.setVisible(false);
@@ -2960,6 +2977,10 @@ public class clerkPortal extends javax.swing.JFrame {
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        refresh();        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     public void returnBookDialog2() {
         int k = jTable8.getSelectedRow();

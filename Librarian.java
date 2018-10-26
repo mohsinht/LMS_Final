@@ -35,6 +35,14 @@ public class Librarian extends User {
         return true;
     }
 
+    public void update(String username, String password, String Name, String Gender, int Age) {
+        this.username = username;
+        this.password = password;
+        this.Name = Name;
+        this.Gender = Gender;
+        this.Age = Age;
+    }
+    
     @Override
     public ArrayList<reservationDate> getResInfo() {
         return this.reservedBooks;

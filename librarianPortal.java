@@ -26,12 +26,7 @@ public class librarianPortal extends javax.swing.JFrame {
     
     public librarianPortal() {
         initComponents();
-        jLabel1.setText("Welcome, " + l.getName() + "!");
-        jTextField1.setText(l.getName());
-        jTextField2.setText(String.valueOf(l.getAge()));
-        jTextField4.setText(l.getUsername());
-        jPasswordField1.setText(l.getPassword());
-        jComboBox1.setSelectedItem(l.getGender());
+        
         
         jButton3.setVisible(false);
         jButton4.setVisible(false);
@@ -51,6 +46,12 @@ public class librarianPortal extends javax.swing.JFrame {
         populateBorrowers();
         populateClerk();
         populateBooks();    
+        jLabel1.setText("Welcome, " + l.getName() + "!");
+        jTextField1.setText(l.getName());
+        jTextField2.setText(String.valueOf(l.getAge()));
+        jTextField4.setText(l.getUsername());
+        jPasswordField1.setText(l.getPassword());
+        jComboBox1.setSelectedItem(l.getGender());
     }
     
     public void populateBooks() {
@@ -1841,7 +1842,6 @@ public class librarianPortal extends javax.swing.JFrame {
         );
 
         jDialog15.setMinimumSize(new java.awt.Dimension(616, 370));
-        jDialog15.setPreferredSize(new java.awt.Dimension(616, 370));
 
         jPanel42.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -3636,9 +3636,15 @@ public class librarianPortal extends javax.swing.JFrame {
         jMenuBar1.setFocusable(false);
         jMenuBar1.setFont(new java.awt.Font("Raleway Light", 0, 12)); // NOI18N
         jMenuBar1.setInheritsPopupMenu(true);
-        jMenuBar1.setMargin(new java.awt.Insets(0, 650, 0, 0));
+        jMenuBar1.setMargin(new java.awt.Insets(0, 675, 0, 0));
 
+        jMenu1.setText("Refresh");
         jMenu1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Logout");
@@ -3704,6 +3710,9 @@ public class librarianPortal extends javax.swing.JFrame {
         if(jComboBox1.getSelectedIndex() == 1){
             g = "Female";
         }
+        db.updateClerk(jTextField4.getText(), String.valueOf(jPasswordField1.getPassword()), jTextField1.getText(), g, (int) Integer.parseInt(jTextField2.getText()));
+        l.update(jTextField4.getText(), String.valueOf(jPasswordField1.getPassword()), jTextField1.getText(), g, (int) Integer.parseInt(jTextField2.getText()));
+        refreshData();
         //String rollNo, String dept, String campus, String username, String password, String Name, String Gender, int Age
         //s.update(jTextField3.getText(), jTextField5.getText(), jTextField6.getText(), jTextField4.getText(), String.valueOf(jPasswordField1.getPassword()), jTextField1.getText(), g, (int)Integer.parseInt(jTextField2.getText()));
     }//GEN-LAST:event_jButton1MouseClicked
@@ -3921,6 +3930,11 @@ public class librarianPortal extends javax.swing.JFrame {
 
     private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
        int k = jTable1.getSelectedRow();
+        if(!jTable1.getValueAt(k, 3).toString().equals("available")){
+            rules.msg = "You cannot reserve a book that is not available";
+            showErr();
+            return;
+        }
         if (l.reserveBook(LMS.getBook(jTable1.getValueAt(k, 1).toString(), jTable1.getValueAt(k, 0).toString()))) {
             db.reservationDate(l.getUsername(), jTable1.getValueAt(k, 0).toString(), "pending", new Date());
             jDialog10.setVisible(true);
@@ -4368,6 +4382,11 @@ public class librarianPortal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // TODO add your handling code here:
+        refreshData();
+    }//GEN-LAST:event_jMenu1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -4460,14 +4479,6 @@ public class librarianPortal extends javax.swing.JFrame {
     private javax.swing.JDialog jDialog9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel100;
-    private javax.swing.JLabel jLabel101;
-    private javax.swing.JLabel jLabel102;
-    private javax.swing.JLabel jLabel103;
-    private javax.swing.JLabel jLabel104;
-    private javax.swing.JLabel jLabel105;
-    private javax.swing.JLabel jLabel106;
-    private javax.swing.JLabel jLabel107;
     private javax.swing.JLabel jLabel109;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel110;
@@ -4556,12 +4567,10 @@ public class librarianPortal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel90;
     private javax.swing.JLabel jLabel91;
-    private javax.swing.JLabel jLabel92;
     private javax.swing.JLabel jLabel93;
     private javax.swing.JLabel jLabel94;
     private javax.swing.JLabel jLabel95;
     private javax.swing.JLabel jLabel96;
-    private javax.swing.JLabel jLabel97;
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
     private javax.swing.JMenu jMenu1;
@@ -4605,19 +4614,9 @@ public class librarianPortal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel41;
     private javax.swing.JPanel jPanel42;
     private javax.swing.JPanel jPanel43;
-    private javax.swing.JPanel jPanel44;
-    private javax.swing.JPanel jPanel45;
     private javax.swing.JPanel jPanel46;
     private javax.swing.JPanel jPanel47;
-    private javax.swing.JPanel jPanel48;
-    private javax.swing.JPanel jPanel49;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel50;
-    private javax.swing.JPanel jPanel51;
-    private javax.swing.JPanel jPanel52;
-    private javax.swing.JPanel jPanel53;
-    private javax.swing.JPanel jPanel54;
-    private javax.swing.JPanel jPanel55;
     private javax.swing.JPanel jPanel57;
     private javax.swing.JPanel jPanel58;
     private javax.swing.JPanel jPanel59;

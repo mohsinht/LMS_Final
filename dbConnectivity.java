@@ -154,6 +154,27 @@ public class dbConnectivity {
         }
     }
 
+    void updateLibrarian(String username, String password, String Name, String Gender, int Age) {
+        try {
+            System.out.println("username: " + username);
+            PreparedStatement updatedProfile = con.prepareStatement("UPDATE Librarian SET "
+                    + "	name = ?,"
+                    + "	age = ?,"
+                    + "	password = ?,"
+                    + "	gender = ? "
+                    + " WHERE username = ?");
+
+            updatedProfile.setString(1, Name);
+            updatedProfile.setInt(2, Age);
+            updatedProfile.setString(3, password);
+            updatedProfile.setString(4, Gender);
+            updatedProfile.setString(5, username);
+            updatedProfile.executeQuery();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
     public void changeResStatus(String Status, String isbn, String username) {
         try {
             System.out.println("username: " + username);

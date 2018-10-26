@@ -21,9 +21,22 @@ public class studentPortal extends javax.swing.JFrame {
      */
     dbConnectivity db = new dbConnectivity();
     Borrower s = (Borrower) LMS.loggedInUser;
-
+    
     public studentPortal() {
         initComponents();
+        jTable1.setDefaultEditor(Object.class, null);
+        jButton3.setVisible(false);
+        jButton4.setVisible(false);
+        refresh();
+    }
+    
+    public void refresh(){
+        db.loadBooks();
+        db.loadUsers();
+        db.retrieveBookRecords();
+        db.loadPendingReservations();
+        pendingReservationsLoadData();
+        populateReservationData();
         jLabel1.setText("Welcome, " + s.getName() + "!");
         jTextField1.setText(s.getName());
         jTextField2.setText(String.valueOf(s.getAge()));
@@ -33,12 +46,6 @@ public class studentPortal extends javax.swing.JFrame {
         jTextField3.setText(s.getRollNo());
         jTextField5.setText(s.getDept());
         jTextField6.setText(s.getCampus());
-        jTable1.setDefaultEditor(Object.class, null);
-        jButton3.setVisible(false);
-        jButton4.setVisible(false);
-        db.loadPendingReservations();
-        pendingReservationsLoadData();
-        populateReservationData();
     }
 
     public void pendingReservationsLoadData() {
@@ -142,6 +149,7 @@ public class studentPortal extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
@@ -510,6 +518,8 @@ public class studentPortal extends javax.swing.JFrame {
             jDialog3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Student Portal - LMS");
@@ -1233,13 +1243,21 @@ public class studentPortal extends javax.swing.JFrame {
         jMenuBar1.setFocusable(false);
         jMenuBar1.setFont(new java.awt.Font("Raleway Light", 0, 12)); // NOI18N
         jMenuBar1.setInheritsPopupMenu(true);
-        jMenuBar1.setMargin(new java.awt.Insets(0, 710, 0, 0));
+        jMenuBar1.setMargin(new java.awt.Insets(0, 670, 0, 0));
 
+        jMenu1.setText("Refresh");
         jMenu1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setBackground(new java.awt.Color(255, 51, 51));
         jMenu2.setText("Logout");
         jMenu2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jMenu2.setIconTextGap(0);
         jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu2MouseClicked(evt);
@@ -1251,6 +1269,7 @@ public class studentPortal extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(jMenu2);
+        jMenu2.getAccessibleContext().setAccessibleDescription("");
 
         setJMenuBar(jMenuBar1);
 
@@ -1321,10 +1340,14 @@ public class studentPortal extends javax.swing.JFrame {
         if (jComboBox1.getSelectedIndex() == 1) {
             g = "Female";
         }
+        if(!rules.age(jTextField2.getText())){
+            showErr();
+            return;
+        }
         db.updateBorrower(jTextField3.getText(), jTextField5.getText(), jTextField6.getText(), jTextField4.getText(), String.valueOf(jPasswordField1.getPassword()), jTextField1.getText(), g, (int) Integer.parseInt(jTextField2.getText()));
         //String rollNo, String dept, String campus, String username, String password, String Name, String Gender, int Age
         s.update(jTextField3.getText(), jTextField5.getText(), jTextField6.getText(), jTextField4.getText(), String.valueOf(jPasswordField1.getPassword()), jTextField1.getText(), g, (int) Integer.parseInt(jTextField2.getText()));
-
+        refresh();
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jTextField7FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField7FocusGained
@@ -1455,6 +1478,11 @@ public class studentPortal extends javax.swing.JFrame {
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
         int k = jTable1.getSelectedRow();
+        if(!jTable1.getValueAt(k, 3).toString().equals("available")){
+            rules.msg = "You cannot reserve a book that is not available";
+            showErr();
+            return;
+        }
         if (s.reserveBook(LMS.getBook(jTable1.getValueAt(k, 1).toString(), jTable1.getValueAt(k, 0).toString()))) {
             db.reservationDate(s.getUsername(), jTable1.getValueAt(k, 0).toString(), "pending", new Date());
             jDialog1.setVisible(false);
@@ -1492,11 +1520,14 @@ public class studentPortal extends javax.swing.JFrame {
         db.removeBookFromReservation(bk.getISBN(), s.getUsername());
         s.removeBookFromReservation(bk);
         db.updateReturnDate(bk.getISBN(), s.getUsername(), jTable5.getValueAt(k, 2).toString(), d.toString());
-        db.retrieveBookRecords();
-        db.loadPendingReservations();
-        populateReservationData();
+        refresh();
         jDialog3.setVisible(false);
     }//GEN-LAST:event_jButton7MouseClicked
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // TODO add your handling code here:
+        refresh();
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     public void returnBookDialog() {
         int k = jTable5.getSelectedRow();
@@ -1596,6 +1627,7 @@ public class studentPortal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
