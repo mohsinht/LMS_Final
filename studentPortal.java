@@ -21,7 +21,7 @@ public class studentPortal extends javax.swing.JFrame {
      */
     dbConnectivity db = new dbConnectivity();
     Borrower s = (Borrower) LMS.loggedInUser;
-    
+    static int totalFine = 0;
     public studentPortal() {
         initComponents();
         jTable1.setDefaultEditor(Object.class, null);
@@ -69,6 +69,7 @@ public class studentPortal extends javax.swing.JFrame {
 
     public void populateReservationData() {
         //System.out.println("username: " + LMS.records.get(0).getIssuedTo().getUsername());
+        totalFine = 0;
         DefaultTableModel model = (DefaultTableModel) jTable5.getModel();
         for (int i = model.getRowCount() - 1; i >= 0; i--) {
             model.removeRow(i);
@@ -83,6 +84,8 @@ public class studentPortal extends javax.swing.JFrame {
         for (int i = 0; i < LMS.records.size(); i++) {
             if (LMS.records.get(i).getIssuedTo().getUsername().equals(s.getUsername())) {
                 if (LMS.records.get(i).getReturnDate() == null) {
+                    totalFine += LMS.records.get(i).getFine();
+                    
                     rowData[0] = LMS.records.get(i).getBook().getName();
                     rowData[1] = LMS.records.get(i).getIssuer().getUsername();
                     rowData[2] = LMS.records.get(i).issueDate.toString();
@@ -96,6 +99,8 @@ public class studentPortal extends javax.swing.JFrame {
         for (int i = 0; i < LMS.records.size(); i++) {
             if (LMS.records.get(i).getIssuedTo().getUsername().equals(s.getUsername())) {
                 if (LMS.records.get(i).getReturnDate() != null) {
+                    totalFine += LMS.records.get(i).getFine();
+                    
                     
                     rowData2[0] = LMS.records.get(i).getBook().getName();
                     rowData2[1] = LMS.records.get(i).getIssuer().getUsername();
@@ -107,6 +112,8 @@ public class studentPortal extends javax.swing.JFrame {
                 }
             }
         }
+        
+        jLabel19.setText(String.valueOf(totalFine) + "rs");
 
     }
 
@@ -201,6 +208,8 @@ public class studentPortal extends javax.swing.JFrame {
         jTable4 = new javax.swing.JTable();
         jPanel50 = new javax.swing.JPanel();
         jLabel76 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -1193,6 +1202,14 @@ public class studentPortal extends javax.swing.JFrame {
                 .addGap(46, 46, 46))
         );
 
+        jLabel18.setFont(new java.awt.Font("Raleway ExtraBold", 0, 18)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("Your Pending Fine:");
+
+        jLabel19.setFont(new java.awt.Font("Rawline ExtraBold", 0, 18)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setText("0rs");
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -1200,7 +1217,12 @@ public class studentPortal extends javax.swing.JFrame {
             .addComponent(jPanel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29))
         );
         jPanel12Layout.setVerticalGroup(
@@ -1208,8 +1230,12 @@ public class studentPortal extends javax.swing.JFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addComponent(jPanel50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel19))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -1598,6 +1624,8 @@ public class studentPortal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
