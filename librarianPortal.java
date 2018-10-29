@@ -1,8 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+    
+Object Oriented Analysis & Design
+
+Assignment #1
+Section: CS-A
+
+1.  Name: Mohsin Hayat   |   Roll Number: L16-4333
+2.  Name: Aanish Amir    |   Roll Number: L16-4144
+
+*/
+
+
+
 package lms;
 
 import java.text.SimpleDateFormat;
@@ -176,7 +185,6 @@ public class librarianPortal extends javax.swing.JFrame {
             ArrayList<reservationDate> rd = u.getResInfo();
             for (int j = 0; j < rd.size(); j++) {
                 if (rd.get(j).getBook().getISBN().equals(LMS.Books.get(i).getISBN())) {
-                    System.out.println(rd.get(j).getStatus());
                     rowData[2] = rd.get(j).getStatus();
                     rowData[3] = rd.get(j).getDate().toString();
                     flag = true;
@@ -1221,7 +1229,7 @@ public class librarianPortal extends javax.swing.JFrame {
                 .addComponent(jLabel39)
                 .addGap(18, 18, 18)
                 .addComponent(jButton10)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jDialog9Layout = new javax.swing.GroupLayout(jDialog9.getContentPane());
@@ -3811,7 +3819,7 @@ public class librarianPortal extends javax.swing.JFrame {
             showErr();
             return;
         }
-        if(!rules.rollno(rollno)){
+        if(!rules.rollnumber(rollno)){
             showErr();
             return;
         }
@@ -3917,7 +3925,6 @@ public class librarianPortal extends javax.swing.JFrame {
     private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
         // TODO add your handling code here:
         ArrayList<Book> bookRes = l.searchBook(jTextField14.getText());
-        System.out.println("Size: " + jTextField14.getText());
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         for (int i = model.getRowCount() - 1; i >= 0; i--) {
             model.removeRow(i);
@@ -4055,7 +4062,10 @@ public class librarianPortal extends javax.swing.JFrame {
             showErr();
             return;
         }
-        
+        if(rules.name(roll_no.getText())){
+            showErr();
+            return;
+        }
         db.updateBorrower(name_txt.getText(), password_txt.getText(), roll_no.getText(), jTextField19.getText(), campus_txt.getText(), jTextField20.getText(), g, age_txt_slider.getValue());
         refreshData();
         jDialog6.setVisible(false);
@@ -4129,10 +4139,16 @@ public class librarianPortal extends javax.swing.JFrame {
 
     private void jButton14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton14MouseClicked
         
-         String g = "Male";
+        String g = "Male";
         if (gender_combo1.getSelectedIndex() == 1) {
             g = "Female";
         }
+        
+        if (rules.name(name_txt1.getText())) {
+            showErr();
+            return;
+        }
+        
         db.updateClerk(username_txt1.getText(), password_txt1.getText(), name_txt1.getText(), g, age_txt_slider1.getValue());
         refreshData();
         jDialog6.setVisible(false);
@@ -4356,7 +4372,6 @@ public class librarianPortal extends javax.swing.JFrame {
         if (k < 0) {
             return;
         }
-        System.out.println(jTable10.getValueAt(k, 1).toString());
         Book bk = LMS.getBookByName(jTable10.getValueAt(k, 1).toString());
         Date d = new Date();
         User u = LMS.getUser(jTable10.getValueAt(k, 0).toString());

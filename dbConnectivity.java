@@ -1,3 +1,16 @@
+/*
+    
+Object Oriented Analysis & Design
+
+Assignment #1
+Section: CS-A
+
+1.  Name: Mohsin Hayat   |   Roll Number: L16-4333
+2.  Name: Aanish Amir    |   Roll Number: L16-4144
+
+*/
+
+
 package lms;
 
 import java.sql.Connection;
@@ -44,7 +57,6 @@ public class dbConnectivity {
             while (rs.next()) {
                 LMS.Users.add(new Borrower(rs.getString(6).trim(), rs.getString(4).trim(), rs.getString(5).trim(), rs.getString(7).trim(), rs.getString(8).trim(), rs.getString(2).trim(), rs.getString(9).trim(), rs.getInt(3)));
             }
-            System.out.println(LMS.Users.get(2).getUsername() + " " + LMS.Users.get(2).getPassword());
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -135,7 +147,6 @@ public class dbConnectivity {
 
     void updateClerk(String username, String password, String Name, String Gender, int Age) {
         try {
-            System.out.println("username: " + username);
             PreparedStatement updatedProfile = con.prepareStatement("UPDATE Clerk SET "
                     + "	name = ?,"
                     + "	age = ?,"
@@ -156,7 +167,6 @@ public class dbConnectivity {
 
     void updateLibrarian(String username, String password, String Name, String Gender, int Age) {
         try {
-            System.out.println("username: " + username);
             PreparedStatement updatedProfile = con.prepareStatement("UPDATE Librarian SET "
                     + "	name = ?,"
                     + "	age = ?,"
@@ -177,7 +187,6 @@ public class dbConnectivity {
     
     public void changeResStatus(String Status, String isbn, String username) {
         try {
-            System.out.println("username: " + username);
             PreparedStatement updatedRS = con.prepareStatement("UPDATE reservationDate SET "
                     + "	status = ? "
                     + " WHERE username = ? and isbn = ?");
@@ -268,8 +277,6 @@ public class dbConnectivity {
 
     public void updateReturnDate(String isbn, String issuedTo, String issueDate, String returnDate) {
         try {
-
-            System.out.println("isbn = " + isbn + " issuedTo = " + issuedTo + " issueDate = " + issueDate);
             PreparedStatement updatedRS = con.prepareStatement("UPDATE BookRecord SET "
                     + "	returnDate = ? "
                     + " WHERE isbn = ? and issuedto = ? and date = ?");

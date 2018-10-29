@@ -1,3 +1,16 @@
+/*
+    
+Object Oriented Analysis & Design
+
+Assignment #1
+Section: CS-A
+
+1.  Name: Mohsin Hayat   |   Roll Number: L16-4333
+2.  Name: Aanish Amir    |   Roll Number: L16-4144
+
+*/
+
+
 package lms;
 
 import java.util.*;
@@ -43,7 +56,6 @@ public class LMS {
         int userMode;
         for (int i = 0; i < Users.size(); i++) {
             String cls = Users.get(i).getClass().getName();
-            System.out.println("user: " + cls);
             switch (cls) {
                 case "lms.Librarian":
                     userMode = 3;

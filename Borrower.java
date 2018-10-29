@@ -1,3 +1,16 @@
+/*
+    
+Object Oriented Analysis & Design
+
+Assignment #1
+Section: CS-A
+
+1.  Name: Mohsin Hayat   |   Roll Number: L16-4333
+2.  Name: Aanish Amir    |   Roll Number: L16-4144
+
+*/
+
+
 package lms;
 
 import java.util.*;
@@ -84,7 +97,6 @@ public class Borrower extends User {
     }
     @Override
     public void changeResStatus(Book b, String Status){
-        System.out.println("Book: " + b.getName() + ", Status: " + Status);
         for (int k = 0; k < reservedBooks.size(); k++) {
             if(reservedBooks.get(k).getBook().getISBN().equals(b.getISBN())){
                 reservedBooks.get(k).setStatus(Status);

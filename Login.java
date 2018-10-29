@@ -1,8 +1,15 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+    
+Object Oriented Analysis & Design
+
+Assignment #1
+Section: CS-A
+
+1.  Name: Mohsin Hayat   |   Roll Number: L16-4333
+2.  Name: Aanish Amir    |   Roll Number: L16-4144
+
+*/
+
 package lms;
 
 import javax.swing.JOptionPane;

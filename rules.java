@@ -1,3 +1,16 @@
+/*
+    
+Object Oriented Analysis & Design
+
+Assignment #1
+Section: CS-A
+
+1.  Name: Mohsin Hayat   |   Roll Number: L16-4333
+2.  Name: Aanish Amir    |   Roll Number: L16-4144
+
+*/
+
+
 package lms;
 
 public class rules {
@@ -58,19 +71,17 @@ public class rules {
         return true;
     }
 
-    public static boolean rollno(String rollno) {
-        if (!rollno.matches("A-Z0-9")) {
-
-            msg = "The name is not in its correct format.";
+    public static boolean rollnumber(String rn){
+        if(!rn.matches("((L|K|F|P)+[0-9].[-]+[0-9])\\w{3}")){
+            msg = "Roll number must be in right format. (i.e L16-4333 or P18-8956)";
             return false;
         }
-        if (rollno.length() != 7) {
-            msg = "The rollno is not in its correct format.";
+        if(rn.equals("")){
+            msg = "Roll number must not be empty.";
             return false;
         }
         return true;
     }
-
     public static boolean password(String password) {
         if (password.length() > 20) {
             msg = "The password must be less than 20 characters";

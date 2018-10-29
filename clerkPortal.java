@@ -1,8 +1,16 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+    
+Object Oriented Analysis & Design
+
+Assignment #1
+Section: CS-A
+
+1.  Name: Mohsin Hayat   |   Roll Number: L16-4333
+2.  Name: Aanish Amir    |   Roll Number: L16-4144
+
+*/
+
+
 package lms;
 
 import java.text.SimpleDateFormat;
@@ -147,7 +155,6 @@ public class clerkPortal extends javax.swing.JFrame {
             ArrayList<reservationDate> rd = u.getResInfo();
             for (int j = 0; j < rd.size(); j++) {
                 if (rd.get(j).getBook().getISBN().equals(LMS.Books.get(i).getISBN()) && rd.get(j).getStatus().equals("pending")) {
-                    System.out.println(rd.get(j).getStatus());
                     rowData[2] = rd.get(j).getStatus();
                     rowData[3] = rd.get(j).getDate().toString();
                     flag = true;
@@ -2545,6 +2552,15 @@ public class clerkPortal extends javax.swing.JFrame {
         if (jComboBox1.getSelectedIndex() == 1) {
             g = "Female";
         }
+        
+        if(!rules.age(jTextField2.getText())){
+            showErr();
+            return;
+        }
+        if(!rules.name(jTextField1.getText())){
+            showErr();
+            return;
+        }
         db.updateClerk(jTextField5.getText(), String.valueOf(jPasswordField1.getPassword()), jTextField1.getText(), g, (int) Integer.parseInt(jTextField2.getText()));
         c.update(jTextField5.getText(), String.valueOf(jPasswordField1.getPassword()), jTextField1.getText(), g, (int) Integer.parseInt(jTextField2.getText()));
         refresh();
@@ -2579,7 +2595,6 @@ public class clerkPortal extends javax.swing.JFrame {
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
         ArrayList<Book> bookRes = c.searchBook(jTextField7.getText());
-        System.out.println("Size: " + jTextField7.getText());
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         for (int i = model.getRowCount() - 1; i >= 0; i--) {
             model.removeRow(i);
@@ -2825,6 +2840,27 @@ public class clerkPortal extends javax.swing.JFrame {
         if (jComboBox2.getSelectedIndex() == 1) {
             g = "Female";
         }
+
+        if (rules.name(jTextField12.getText())) {
+            showErr();
+            return;
+        }
+        if (rules.age(jTextField13.getText())) {
+            showErr();
+            return;
+        }
+
+        if (rules.username(jTextField14.getText())) {
+            showErr();
+            return;
+        }
+
+        if (rules.rollnumber(jTextField16.getText())) {
+            showErr();
+            return;
+        }
+        
+        
         if (jTextField14.getText().equals("") || jTextField13.getText().equals("") || jTextField12.getText().equals("") || jTextField15.getText().equals("") || jTextField16.getText().equals("") || jTextField17.getText().equals("") || jTextField18.getText().equals("")) {
             errorMessage("Few details are missing!");
             return;
@@ -2889,6 +2925,14 @@ public class clerkPortal extends javax.swing.JFrame {
         if (jComboBox3.getSelectedIndex() == 1) {
             g = "Female";
         }
+        if (rules.name(jTextField20.getText())) {
+            showErr();
+            return;
+        }
+        if (rules.rollnumber(jTextField22.getText())) {
+            showErr();
+            return;
+        }
 
         db.updateBorrower(jTextField22.getText(), jTextField25.getText(), jTextField23.getText(), jTextField19.getText(), jTextField24.getText(), jTextField20.getText(), g, age_txt_slider.getValue());
         db.loadUsers();
@@ -2920,7 +2964,6 @@ public class clerkPortal extends javax.swing.JFrame {
         if (k < 0) {
             return;
         }
-        System.out.println(jTable7.getValueAt(k, 0).toString());
         Book bk = LMS.getBookByName(jTable7.getValueAt(k, 0).toString());
         Date d = new Date();
         db.removeBookFromReservation(bk.getISBN(), c.getUsername());
@@ -2954,7 +2997,6 @@ public class clerkPortal extends javax.swing.JFrame {
         if (k < 0) {
             return;
         }
-        System.out.println(jTable8.getValueAt(k, 1).toString());
         Book bk = LMS.getBookByName(jTable8.getValueAt(k, 1).toString());
         Date d = new Date();
         User u = LMS.getUser(jTable8.getValueAt(k, 0).toString());

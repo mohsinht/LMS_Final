@@ -1,8 +1,16 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+    
+Object Oriented Analysis & Design
+
+Assignment #1
+Section: CS-A
+
+1.  Name: Mohsin Hayat   |   Roll Number: L16-4333
+2.  Name: Aanish Amir    |   Roll Number: L16-4144
+
+*/
+
+
 package lms;
 
 import java.util.ArrayList;
@@ -68,7 +76,6 @@ public class studentPortal extends javax.swing.JFrame {
     }
 
     public void populateReservationData() {
-        //System.out.println("username: " + LMS.records.get(0).getIssuedTo().getUsername());
         totalFine = 0;
         DefaultTableModel model = (DefaultTableModel) jTable5.getModel();
         for (int i = model.getRowCount() - 1; i >= 0; i--) {
@@ -1367,6 +1374,14 @@ public class studentPortal extends javax.swing.JFrame {
             g = "Female";
         }
         if(!rules.age(jTextField2.getText())){
+            showErr();
+            return;
+        }
+        if(!rules.name(jTextField1.getText())){
+            showErr();
+            return;
+        }
+        if(!rules.rollnumber(jTextField3.getText())){
             showErr();
             return;
         }
