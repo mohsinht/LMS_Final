@@ -787,7 +787,6 @@ public class librarianPortal extends javax.swing.JFrame {
         );
 
         jDialog7.setMinimumSize(new java.awt.Dimension(616, 370));
-        jDialog7.setPreferredSize(new java.awt.Dimension(616, 370));
 
         jPanel25.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1015,7 +1014,6 @@ public class librarianPortal extends javax.swing.JFrame {
         );
 
         jDialog8.setMinimumSize(new java.awt.Dimension(616, 370));
-        jDialog8.setPreferredSize(new java.awt.Dimension(616, 370));
 
         jPanel27.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -2048,6 +2046,7 @@ public class librarianPortal extends javax.swing.JFrame {
         jTextField2.setFont(new java.awt.Font("Raleway Medium", 0, 12)); // NOI18N
         jTextField2.setText("name");
 
+        jTextField4.setEditable(false);
         jTextField4.setFont(new java.awt.Font("Raleway Medium", 0, 12)); // NOI18N
         jTextField4.setText("name");
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
@@ -2452,7 +2451,7 @@ public class librarianPortal extends javax.swing.JFrame {
         jPanel23.setLayout(jPanel23Layout);
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 644, Short.MAX_VALUE)
+            .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 650, Short.MAX_VALUE)
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2928,7 +2927,7 @@ public class librarianPortal extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 1, Short.MAX_VALUE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         jTabbedPane3.addTab("Students Info", jPanel5);
@@ -3060,7 +3059,7 @@ public class librarianPortal extends javax.swing.JFrame {
         jPanel60Layout.setVerticalGroup(
             jPanel60Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel60Layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addComponent(jLabel112)
                 .addGap(46, 46, 46))
         );
@@ -3073,7 +3072,9 @@ public class librarianPortal extends javax.swing.JFrame {
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel60, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addComponent(jPanel60, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -3086,7 +3087,7 @@ public class librarianPortal extends javax.swing.JFrame {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -3636,7 +3637,7 @@ public class librarianPortal extends javax.swing.JFrame {
         jMenuBar1.setFocusable(false);
         jMenuBar1.setFont(new java.awt.Font("Raleway Light", 0, 12)); // NOI18N
         jMenuBar1.setInheritsPopupMenu(true);
-        jMenuBar1.setMargin(new java.awt.Insets(0, 675, 0, 0));
+        jMenuBar1.setMargin(new java.awt.Insets(0, 660, 0, 0));
 
         jMenu1.setText("Refresh");
         jMenu1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -3666,9 +3667,7 @@ public class librarianPortal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3710,6 +3709,17 @@ public class librarianPortal extends javax.swing.JFrame {
         if(jComboBox1.getSelectedIndex() == 1){
             g = "Female";
         }
+        
+        if(!rules.age(jTextField2.getText())){
+            showErr();
+            return;
+        }
+        
+        if(!rules.name(jTextField1.getText())){
+            showErr();
+            return;
+        }
+        
         db.updateClerk(jTextField4.getText(), String.valueOf(jPasswordField1.getPassword()), jTextField1.getText(), g, (int) Integer.parseInt(jTextField2.getText()));
         l.update(jTextField4.getText(), String.valueOf(jPasswordField1.getPassword()), jTextField1.getText(), g, (int) Integer.parseInt(jTextField2.getText()));
         refreshData();
@@ -3736,6 +3746,12 @@ public class librarianPortal extends javax.swing.JFrame {
         String author = jTextField5.getText();
         String isbn = jTextField7.getText();
         int qty = jSlider1.getValue();
+        
+        if(!rules.ISBN(isbn)){
+            showErr();
+            return;
+        }
+        
         if(title.equals("") || author.equals("") || isbn.equals("") || isbn.matches(".*[a-zA-Z]+.*")){
             jDialog2.setVisible(true);
             return;
@@ -3744,6 +3760,14 @@ public class librarianPortal extends javax.swing.JFrame {
             jDialog2.setVisible(true);
             return;
         }
+        
+        if(LMS.getBookByName(title) != null){
+            rules.msg = "Book with this name already exists.";
+            showErr();
+            return;
+        }
+        
+        
         LMS.Books.add(new Book(title, author, isbn, qty));
 
         
@@ -3755,6 +3779,8 @@ public class librarianPortal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    
+    
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
         jDialog1.setVisible(false);
@@ -3782,6 +3808,18 @@ public class librarianPortal extends javax.swing.JFrame {
         String gender = "Male";
         
         if(!rules.username(username)){
+            showErr();
+            return;
+        }
+        if(!rules.rollno(rollno)){
+            showErr();
+            return;
+        }
+        if(!rules.name(name)){
+            showErr();
+            return;
+        }
+        if(!rules.password(password)){
             showErr();
             return;
         }
@@ -4013,7 +4051,11 @@ public class librarianPortal extends javax.swing.JFrame {
         if (jComboBox2.getSelectedIndex() == 1) {
             g = "Female";
         }
-
+        if(!rules.name(name_txt.getText())){
+            showErr();
+            return;
+        }
+        
         db.updateBorrower(name_txt.getText(), password_txt.getText(), roll_no.getText(), jTextField19.getText(), campus_txt.getText(), jTextField20.getText(), g, age_txt_slider.getValue());
         refreshData();
         jDialog6.setVisible(false);
